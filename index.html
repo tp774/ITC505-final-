@@ -43,23 +43,6 @@
         button:hover {
             background-color: #0056b3;
         }
-        .addendum {
-            margin: 20px auto;
-            width: 80%;
-            text-align: left;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-        }
-        .addendum h2 {
-            cursor: pointer;
-            margin: 0;
-        }
-        .addendum-content {
-            display: none;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
@@ -68,33 +51,6 @@
     <div class="controls">
         <button id="restartButton">Restart Game</button>
     </div>
-
-    <div class="addendum">
-        <h2 onclick="toggleAddendum()">Addendum (Click to Expand/Collapse)</h2>
-        <div id="addendumContent" class="addendum-content">
-            <h3>Process and Creative Choices</h3>
-            <p>
-                The game design started with creating a visually appealing grid layout using CSS. 
-                The logic for toggling cells and their neighbors was modularized for better code readability. 
-                The board was randomized by simulating random clicks to ensure it was always solveable.
-            </p>
-
-            <h3>Challenges and Insights</h3>
-            <p>
-                One of the primary challenges was ensuring the board was solveable. Randomly assigning 
-                states to cells was not feasible, so simulating random clicks on an all-white board 
-                solved this problem. This approach highlighted the importance of planning before coding.
-            </p>
-
-            <h3>Future Enhancements</h3>
-            <p>
-                - Add a timer or move counter to track player performance.<br>
-                - Include a reset button to start a new game without refreshing the page.<br>
-                - Improve accessibility features, such as keyboard controls and ARIA labels.
-            </p>
-        </div>
-    </div>
-
     <footer>
         <p>Last updated: 
             <span id="lastModified"></span>
@@ -104,19 +60,13 @@
         var x = document.lastModified;
         document.getElementById('lastModified').textContent = x;
 
-        // Toggle Addendum visibility
-        function toggleAddendum() {
-            const content = document.getElementById("addendumContent");
-            content.style.display = content.style.display === "block" ? "none" : "block";
-        }
-
         document.addEventListener("DOMContentLoaded", () => {
             const gridSize = 5;
             const gameBoard = document.getElementById("gameBoard");
             const restartButton = document.getElementById("restartButton");
             let cells = [];
 
-            // Create the grid
+            // Function to create the grid
             function createGrid() {
                 cells = []; // Reset the cells array
                 gameBoard.innerHTML = ""; // Clear the game board
@@ -148,7 +98,7 @@
                 toggle(row, col + 1); // Right neighbor
             }
 
-            // Randomize board with a solveable configuration
+            // Randomize the board with a solveable configuration
             function randomizeBoard() {
                 cells.forEach(cell => cell.classList.remove("is-off")); // Reset all cells
                 for (let i = 0; i < 10; i++) {
