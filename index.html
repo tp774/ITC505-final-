@@ -102,15 +102,6 @@
         </p>
     </footer>
     <script>
-        var x = document.lastModified;
-        document.getElementById('lastModified').textContent = x;
-
-        // Toggle Addendum visibility
-        function toggleAddendum() {
-            const content = document.getElementById("addendumContent");
-            content.classList.toggle("visible");
-        }
-
         document.addEventListener("DOMContentLoaded", () => {
             const gridSize = 5;
             const gameBoard = document.getElementById("gameBoard");
@@ -187,6 +178,16 @@
             });
 
             initializeGame();
+
+            // Update last modified date
+            var x = document.lastModified;
+            document.getElementById('lastModified').textContent = x;
+
+            // Toggle Addendum visibility
+            window.toggleAddendum = function () {
+                const content = document.getElementById("addendumContent");
+                content.classList.toggle("visible");
+            };
         });
     </script>
 </body>
