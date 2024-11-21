@@ -110,16 +110,16 @@
             content.style.display = content.style.display === "block" ? "none" : "block";
         }
 
-        // JavaScript for Lights Out Game
         document.addEventListener("DOMContentLoaded", () => {
             const gridSize = 5;
             const gameBoard = document.getElementById("gameBoard");
             const restartButton = document.getElementById("restartButton");
-            const cells = [];
+            let cells = [];
 
             // Create the grid
             function createGrid() {
-                gameBoard.innerHTML = "";
+                cells = []; // Reset the cells array
+                gameBoard.innerHTML = ""; // Clear the game board
                 for (let i = 0; i < gridSize * gridSize; i++) {
                     const cell = document.createElement("div");
                     cell.classList.add("cell");
