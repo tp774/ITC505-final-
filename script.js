@@ -1,15 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
     const gridSize = 5;
     const gameBoard = document.getElementById("gameBoard");
-    const cells = [];
+    const restartButton = document.getElementById("restartButton");
+    let cells = [];
 
-    // Create the grid
-    for (let i = 0; i < gridSize * gridSize; i++) {
-        const cell = document.createElement("div");
-        cell.classList.add("cell");
-        cell.dataset.index = i;
-        gameBoard.appendChild(cell);
-        cells.push(cell);
+    // Function to create the grid
+    function createGrid() {
+        cells = []; // Reset the cells array
+        gameBoard.innerHTML = ""; // Clear the game board
+        for (let i = 0; i < gridSize * gridSize; i++) {
+            const cell = document.createElement("div");
+            cell.classList.add("cell");
+            cell.dataset.index = i;
+            gameBoard.appendChild(cell);
+            cells.push(cell);
+        }
     }
 
     // Toggle a cell and its neighbors
@@ -31,8 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
         toggle(row, col + 1); // Right neighbor
     }
 
-    // Randomize board with a solveable configuration
+    // Randomize the board with a solveable configuration
     function randomizeBoard() {
+        cells.forEach(cell => cell.classList.remove("is-off")); // Reset all cells
         for (let i = 0; i < 10; i++) {
             const randomIndex = Math.floor(Math.random() * gridSize * gridSize);
             toggleCell(randomIndex);
@@ -50,14 +56,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Add click event listeners to cells
-    cells.forEach((cell, index) => {
-        cell.addEventListener("click", () => {
-            toggleCell(index);
-            checkWin();
+    // Initialize the game
+    function initializeGame() {
+        createGrid();
+        cells.forEach((cell, index) => {
+            cell.addEventListener("click", () => {
+                toggleCell(index);
+                checkWin();
+            });
         });
+        randomizeBoard();
+    }
+
+    // Restart button functionality
+    restartButton.addEventListener("click", () => {
+        initializeGame();
     });
 
-    // Start the game
-    randomizeBoard();
+    initializeGame();
+
+    // Update last modified date
+    var x = document.lastModified;
+    document.getElementById('lastModified').textContent = x;
+
+    // Toggle Addendum visibility
+    window.toggleAddendum = function () {
+        const content = document.getElementById("addendumContent");
+        content.classList.toggle("visible");
+    };
 });
