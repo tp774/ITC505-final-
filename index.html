@@ -57,7 +57,7 @@
             margin: 0;
         }
         .addendum-content {
-            display: none; /* Hidden by default */
+            display: none; /* Initially hidden */
             margin-top: 10px;
         }
         .addendum-content.visible {
@@ -77,22 +77,21 @@
         <div id="addendumContent" class="addendum-content">
             <h3>Process and Creative Choices</h3>
             <p>
-                The goal was to create an engaging and functional "Lights Out" game using HTML, CSS, and JavaScript. 
-                The grid is dynamically generated to avoid hardcoding, ensuring scalability. For the toggle logic, 
-                CSS classes were used to simplify the code and enhance readability.
+                The "Lights Out" game was developed using HTML, CSS, and JavaScript. The grid is dynamically generated to avoid hardcoding elements, ensuring flexibility and scalability. 
+                The toggle logic uses CSS classes to manage cell states, making it easy to add or remove interactivity.
             </p>
             <h3>Challenges and Insights</h3>
             <p>
-                A significant challenge was ensuring that the game state reset properly during restarts while retaining 
-                interactivity. The issue was resolved by reinitializing event listeners and dynamically recreating the grid.
-                This highlighted the importance of handling DOM elements dynamically and avoiding stale references.
+                A key challenge was resetting the game state during restarts without losing interactivity. 
+                This issue was resolved by dynamically recreating the grid and reattaching event listeners. 
+                This emphasized the importance of efficient DOM manipulation and avoiding stale references.
             </p>
             <h3>Future Enhancements</h3>
             <p>
                 - Adding a move counter to track player performance.<br>
-                - Introducing difficulty levels by varying grid sizes.<br>
+                - Introducing difficulty levels with different grid sizes.<br>
                 - Enhancing accessibility with keyboard navigation and screen reader support.<br>
-                - Including a timer to make the game more competitive.
+                - Including a timer to make the game more challenging and competitive.
             </p>
         </div>
     </div>
@@ -155,4 +154,40 @@
                 cells.forEach(cell => cell.classList.remove("is-off")); // Reset all cells
                 for (let i = 0; i < 10; i++) {
                     const randomIndex = Math.floor(Math.random() * gridSize * gridSize);
-   
+                    toggleCell(randomIndex);
+                }
+            }
+
+            // Check if the game is won
+            function checkWin() {
+                const allOff = cells.every(cell => !cell.classList.contains("is-off"));
+                if (allOff) {
+                    setTimeout(() => {
+                        alert("You win!");
+                        randomizeBoard();
+                    }, 100);
+                }
+            }
+
+            // Initialize the game
+            function initializeGame() {
+                createGrid();
+                cells.forEach((cell, index) => {
+                    cell.addEventListener("click", () => {
+                        toggleCell(index);
+                        checkWin();
+                    });
+                });
+                randomizeBoard();
+            }
+
+            // Restart button functionality
+            restartButton.addEventListener("click", () => {
+                initializeGame();
+            });
+
+            initializeGame();
+        });
+    </script>
+</body>
+</html>
