@@ -77,14 +77,18 @@
         <div id="addendumContent" class="addendum-content">
             <h3>Process and Creative Choices</h3>
             <p>
-                The "Lights Out" game was developed using HTML, CSS, and JavaScript. The grid is dynamically generated to avoid hardcoding elements, ensuring flexibility and scalability. 
-                The toggle logic uses CSS classes to manage cell states, making it easy to add or remove interactivity.
+                For the Lights Out game, I focused on making the grid interactive with a simple 5x5 layout, where each cell toggles between on (white) and off (black) when clicked.
+                I chose to use a simple CSS design to ensure clarity and to avoid unnecessary complexity.
+                The game logic involves toggling a cell and its neighbors, which makes the game dynamic and engaging.
             </p>
             <h3>Challenges and Insights</h3>
             <p>
-                A key challenge was resetting the game state during restarts without losing interactivity. 
-                This issue was resolved by dynamically recreating the grid and reattaching event listeners. 
-                This emphasized the importance of efficient DOM manipulation and avoiding stale references.
+                One challenge I encountered was making sure the game was solvable after randomizing the board.
+                I had to ensure that the starting configuration could always be solved.
+                To resolve this, I simulated random clicks on an all-white board to create a solvable configuration.
+
+                Insights: This project gave me a deeper understanding of how to manage DOM elements in real-time using JavaScript.
+                The key takeaway was ensuring a balance between usability and game logic while keeping the user interface simple and clean.
             </p>
             <h3>Future Enhancements</h3>
             <p>
