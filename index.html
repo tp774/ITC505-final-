@@ -57,8 +57,11 @@
             margin: 0;
         }
         .addendum-content {
-            display: none;
+            display: none; /* Hidden by default */
             margin-top: 10px;
+        }
+        .addendum-content.visible {
+            display: block; /* Shown when toggled */
         }
     </style>
 </head>
@@ -106,7 +109,7 @@
         // Toggle Addendum visibility
         function toggleAddendum() {
             const content = document.getElementById("addendumContent");
-            content.style.display = content.style.display === "block" ? "none" : "block";
+            content.classList.toggle("visible");
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -152,40 +155,4 @@
                 cells.forEach(cell => cell.classList.remove("is-off")); // Reset all cells
                 for (let i = 0; i < 10; i++) {
                     const randomIndex = Math.floor(Math.random() * gridSize * gridSize);
-                    toggleCell(randomIndex);
-                }
-            }
-
-            // Check if the game is won
-            function checkWin() {
-                const allOff = cells.every(cell => !cell.classList.contains("is-off"));
-                if (allOff) {
-                    setTimeout(() => {
-                        alert("You win!");
-                        randomizeBoard();
-                    }, 100);
-                }
-            }
-
-            // Initialize the game
-            function initializeGame() {
-                createGrid();
-                cells.forEach((cell, index) => {
-                    cell.addEventListener("click", () => {
-                        toggleCell(index);
-                        checkWin();
-                    });
-                });
-                randomizeBoard();
-            }
-
-            // Restart button functionality
-            restartButton.addEventListener("click", () => {
-                initializeGame();
-            });
-
-            initializeGame();
-        });
-    </script>
-</body>
-</html>
+   
