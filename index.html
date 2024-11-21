@@ -43,6 +43,23 @@
         button:hover {
             background-color: #0056b3;
         }
+        .addendum {
+            margin: 20px auto;
+            width: 80%;
+            text-align: left;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .addendum h2 {
+            cursor: pointer;
+            margin: 0;
+        }
+        .addendum-content {
+            display: none;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -51,6 +68,32 @@
     <div class="controls">
         <button id="restartButton">Restart Game</button>
     </div>
+
+    <div class="addendum">
+        <h2 onclick="toggleAddendum()">Addendum (Click to Expand/Collapse)</h2>
+        <div id="addendumContent" class="addendum-content">
+            <h3>Process and Creative Choices</h3>
+            <p>
+                The goal was to create an engaging and functional "Lights Out" game using HTML, CSS, and JavaScript. 
+                The grid is dynamically generated to avoid hardcoding, ensuring scalability. For the toggle logic, 
+                CSS classes were used to simplify the code and enhance readability.
+            </p>
+            <h3>Challenges and Insights</h3>
+            <p>
+                A significant challenge was ensuring that the game state reset properly during restarts while retaining 
+                interactivity. The issue was resolved by reinitializing event listeners and dynamically recreating the grid.
+                This highlighted the importance of handling DOM elements dynamically and avoiding stale references.
+            </p>
+            <h3>Future Enhancements</h3>
+            <p>
+                - Adding a move counter to track player performance.<br>
+                - Introducing difficulty levels by varying grid sizes.<br>
+                - Enhancing accessibility with keyboard navigation and screen reader support.<br>
+                - Including a timer to make the game more competitive.
+            </p>
+        </div>
+    </div>
+
     <footer>
         <p>Last updated: 
             <span id="lastModified"></span>
@@ -59,6 +102,12 @@
     <script>
         var x = document.lastModified;
         document.getElementById('lastModified').textContent = x;
+
+        // Toggle Addendum visibility
+        function toggleAddendum() {
+            const content = document.getElementById("addendumContent");
+            content.style.display = content.style.display === "block" ? "none" : "block";
+        }
 
         document.addEventListener("DOMContentLoaded", () => {
             const gridSize = 5;
