@@ -16,7 +16,7 @@
             grid-template-columns: repeat(5, 60px);
             gap: 5px;
             justify-content: center;
-            margin-top: 50px;
+            margin-top: 20px;
         }
         .cell {
             width: 60px;
@@ -27,6 +27,21 @@
         }
         .cell.is-off {
             background-color: black;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
         .addendum {
             margin: 20px auto;
@@ -50,6 +65,9 @@
 <body>
     <h1>Lights Out</h1>
     <div id="gameBoard" class="grid"></div>
+    <div class="controls">
+        <button id="restartButton">Restart Game</button>
+    </div>
 
     <div class="addendum">
         <h2 onclick="toggleAddendum()">Addendum (Click to Expand/Collapse)</h2>
@@ -96,15 +114,19 @@
         document.addEventListener("DOMContentLoaded", () => {
             const gridSize = 5;
             const gameBoard = document.getElementById("gameBoard");
+            const restartButton = document.getElementById("restartButton");
             const cells = [];
 
             // Create the grid
-            for (let i = 0; i < gridSize * gridSize; i++) {
-                const cell = document.createElement("div");
-                cell.classList.add("cell");
-                cell.dataset.index = i;
-                gameBoard.appendChild(cell);
-                cells.push(cell);
+            function createGrid() {
+                gameBoard.innerHTML = "";
+                for (let i = 0; i < gridSize * gridSize; i++) {
+                    const cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    cell.dataset.index = i;
+                    gameBoard.appendChild(cell);
+                    cells.push(cell);
+                }
             }
 
             // Toggle a cell and its neighbors
@@ -128,6 +150,7 @@
 
             // Randomize board with a solveable configuration
             function randomizeBoard() {
+                cells.forEach(cell => cell.classList.remove("is-off")); // Reset all cells
                 for (let i = 0; i < 10; i++) {
                     const randomIndex = Math.floor(Math.random() * gridSize * gridSize);
                     toggleCell(randomIndex);
@@ -145,16 +168,24 @@
                 }
             }
 
-            // Add click event listeners to cells
-            cells.forEach((cell, index) => {
-                cell.addEventListener("click", () => {
-                    toggleCell(index);
-                    checkWin();
+            // Initialize the game
+            function initializeGame() {
+                createGrid();
+                cells.forEach((cell, index) => {
+                    cell.addEventListener("click", () => {
+                        toggleCell(index);
+                        checkWin();
+                    });
                 });
+                randomizeBoard();
+            }
+
+            // Restart button functionality
+            restartButton.addEventListener("click", () => {
+                initializeGame();
             });
 
-            // Start the game
-            randomizeBoard();
+            initializeGame();
         });
     </script>
 </body>
